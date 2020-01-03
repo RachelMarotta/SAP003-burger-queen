@@ -16,7 +16,10 @@ function Menu(props) {
         className={css(styles.btnIntens)}
         Name={props.item.Name}
         Price={props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-        handleClick={() => props.addItem(props.item)}
+        handleClick={(e) => {
+          props.addItem(props.item);
+          e.preventDefault();
+        }}
       />
     </div>
   )

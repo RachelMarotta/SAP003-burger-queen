@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import db from '../utils/firebase';
+import growl from 'growl-alert'
+import 'growl-alert/dist/growl-alert.css'
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Order from '../components/Order';
@@ -68,7 +70,7 @@ function ShowMenu() {
       setOrder(newOrder);
     }
     setTotal(total + (item.Price))
-  } 
+  }
 
   function removeItem(item) {
     const index = (order.indexOf(item));
@@ -80,7 +82,7 @@ function ShowMenu() {
   function minusItem(item) {
     const itemIndex = order.findIndex((el) => el.id === item.id);
     const itemCount = order[itemIndex];
-    
+
     if (itemCount.count === 1) {
       removeItem(itemCount)
     } else {
@@ -89,22 +91,27 @@ function ShowMenu() {
     }
     setTotal(total - (item.Price))
   }
-  
+
   function sendOrder() {
-    db
-      .collection("Orders")
-      .add({
-        client,
-        table,
-        order,
-        total
-      })
-      .then(() => {
-        setClient("");
-        setTable("");
-        setOrder([]);
-        setTotal([]);
-      })
+    if (client && table) {
+      db
+        .collection("Orders")
+        .add({
+          client,
+          table,
+          order,
+          total
+        })
+        .then(() => {
+          growl.success("Pedido enviado!");
+          setClient("");
+          setTable("");
+          setOrder([]);
+          setTotal([]);
+        })
+    } else {
+      growl.warning("Preencha nome e mesa!")
+    }
   }
 
   return (
@@ -115,33 +122,41 @@ function ShowMenu() {
           <Button className={css(styles.btnMenu)}
             handleClick={(e) => {
               setCategory("Café da manhã");
-              e.preventDefault()
+              e.preventDefault();
             }}
             title={"Café da Manhã"} />
           <Button className={css(styles.btnMenu)}
             handleClick={(e) => {
               setCategory("Lanches");
-              e.preventDefault()
+              e.preventDefault();
             }}
             title={"Almoço/Jantar"} />
         </div>
         <div className={css(styles.btnItens)}>
-          {categoryItens.map((item) => <Menu key={item.id} item={item} addItem={addItem} />)}
+          {categoryItens.map((item) => <Menu
+            key={item.id}
+            item={item}
+            addItem={addItem} />)}
         </div>
       </div>
       <div className={css(styles.styleMenu)}>
-      <h1 className={css(styles.title)}>Pedido</h1>
+        <h1 className={css(styles.title)}>Pedido</h1>
         <Input class='input' type='text' value={client}
           handleChange={e => setClient(e.currentTarget.value)} holder='Nome'
         />
         <Input class='input' type='text' value={table}
           handleChange={e => setTable(e.currentTarget.value)} holder='Mesa'
         />
-        {order.map((item) => <Order key={item.id} item={item} addItem={addItem} minusItem={minusItem} removeItem={removeItem} />)}
-        <p>Total: {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+        {order.map((item) => <Order
+          key={item.id}
+          item={item}
+          addItem={addItem}
+          minusItem={minusItem}
+          removeItem={removeItem} />)}
+        <div>Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</div>
         <Button className={css(styles.btnLunch)}
           handleClick={(e) => {
-            setOrder(sendOrder);
+            sendOrder();
             e.preventDefault()
           }} title={"Enviar"} />
       </div>

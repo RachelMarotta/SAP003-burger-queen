@@ -25,15 +25,26 @@ function Order(props) {
           <span>{props.item.Name}</span>
           {props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
           <Button className={css(styles.btnRemove)}
-            handleClick={() =>
-              props.minusItem(props.item)} title={"-"}
+            handleClick={(e) => {
+              props.minusItem(props.item);
+              e.preventDefault();
+            }}
+            title={"-"}
           />
           {props.item.count}
           <Button className={css(styles.btnAdd)}
-            handleClick={() => props.addItem(props.item)} title={"+"}
+            handleClick={(e) => {
+              props.addItem(props.item);
+              e.preventDefault();
+            }}
+            title={"+"}
           />
           <Button className={css(styles.btnAdd)}
-            handleClick={() => props.removeItem(props.item)} title={"🗑️"}
+            handleClick={(e) => {
+              props.removeItem(props.item);
+              e.preventDefault();
+            }}
+            title={"🗑️"}
           />
         </div>
       </div>
