@@ -1,13 +1,16 @@
 import React from 'react';
 
-const Input = (props) => {
-    return (
-    <input 
-    onClick={props.handleClick}
-    className={props.className}
-    title={props.title}
-    value={props.value}/>
-    )
+function Input(props) {
+  return (
+    <div className={props.className}>
+      <label>{props.label}</label>
+      <input type={props.type} 
+        value={props.value} 
+        onChange={props.handleChange} 
+        placeholder={props.holder} 
+      />
+    </div>
+  )
 }
 
-export default Input;
+export default Input

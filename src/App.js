@@ -1,10 +1,16 @@
 import React from 'react';
-import Floor from "./pages/floor"
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+import ShowMenu from "./pages/Floor"
 
 function App() {
   return (
     <div>
-      <Floor />    
+      <ShowMenu />    
     </div>
   );
 }
