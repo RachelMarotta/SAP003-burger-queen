@@ -6,7 +6,12 @@ function Button(props) {
       onClick={props.handleClick}
       className={props.className}
       id={props.id}
-    >{props.item} {props.title} {props.Name} {props.Price} </button>
+      type={props.type}
+    >{props.item}
+      {props.title}
+      {props.Name}
+      {props.Price}
+    </button>
   )
 }
 

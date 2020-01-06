@@ -11,29 +11,96 @@ import Menu from '../components/Menu';
 const styles = StyleSheet.create({
   floorPage: {
     display: 'flex',
+    borderTop: '5px solid black'
   },
   styleMenu: {
     display: 'flex',
     flexDirection: 'column',
-    width: '50%'
+    width: '50%',
   },
   title: {
-    width: '10%',
-    fontSize: '30px',
-    marginTop: '15%',
-    marginLeft: '25%',
+    fontSize: '40px',
+    textAlign: "center",
+    marginTop: '4px',
+    marginBottom: '30px',
+    color: '#000000'
   },
   btnPosition: {
-    marginLeft: '10%',
-    marginBottom: '5%',
+    display: "flex",
+    justifyContent: "space-around",
+    marginBottom: '30px',
   },
   btnMenu: {
-    width: '150px',
-    height: '50px',
+    backgroundColor: "#FFFAF0",
+    borderRadius: "15px",
+    width: "170px",
+    height: "70px",
+    fontSize: "20px",
+    fontWeight: "bold",
+
+    ':active': {
+      position: "relative",
+      top: "5px",
+      boxShadow: "none",
+    },
+
+    ':hover': {
+      backgroundColor: "#FFDE59",
+      color: "#000000"
+    },
   },
-  orderPage: {
-    display: 'flex',
-  }
+  styleTotal: {
+    fontSize: "20px",
+    fontWeight: "bold",
+  },
+  btnSend: {
+    color: "#000000",
+    backgroundColor: "#ffde59",
+    fontSize: "20px",
+    fontWeight: "bold",
+    borderRadius: "15px",
+    width: "100px",
+    height: "60px",
+
+    ':active': {
+      position: "relative",
+      top: "5px",
+      boxShadow: "none",
+    },
+
+    ':hover': {
+      backgroundColor: "#F8CA12",
+      color: "#000000",
+      cursor: "pointer",
+    },
+  },
+  inputPosition: {
+    display: "flex",
+    justifyContent: "space-around"
+  },
+  inputMenu: {
+    borderRadius: "13px",
+    width: "170px",
+    height: "35px",
+    textAlign: "center"
+  },
+  btnItensPosition: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    height: "100%",
+    width: "90%px",
+  },
+  listItens: {
+    marginTop: "20px",
+    overflow: "auto",
+    width: "90%",
+    height: "100%",
+    marginLeft: "20px",
+  },
+  lineOrder: {
+    borderLeft: '5px solid black'
+  },
 })
 
 function ShowMenu() {
@@ -132,7 +199,7 @@ function ShowMenu() {
             }}
             title={"Almoço/Jantar"} />
         </div>
-        <div className={css(styles.btnItens)}>
+        <div className={css(styles.btnItensPosition)}>
           {categoryItens.map((item) => <Menu
             key={item.id}
             item={item}
@@ -140,25 +207,33 @@ function ShowMenu() {
         </div>
       </div>
       <div className={css(styles.styleMenu)}>
-        <h1 className={css(styles.title)}>Pedido</h1>
-        <Input class='input' type='text' value={client}
-          handleChange={e => setClient(e.currentTarget.value)} holder='Nome'
-        />
-        <Input class='input' type='text' value={table}
-          handleChange={e => setTable(e.currentTarget.value)} holder='Mesa'
-        />
-        {order.map((item) => <Order
-          key={item.id}
-          item={item}
-          addItem={addItem}
-          minusItem={minusItem}
-          removeItem={removeItem} />)}
-        <div>Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</div>
-        <Button className={css(styles.btnLunch)}
-          handleClick={(e) => {
-            sendOrder();
-            e.preventDefault()
-          }} title={"Enviar"} />
+        <div className={css(styles.lineOrder)}>
+          <h1 className={css(styles.title)}>Pedido</h1>
+          <div className={css(styles.inputPosition)}>
+            <Input className={css(styles.inputMenu)} holder='Nome' type='text' value={client}
+              handleChange={e => setClient(e.currentTarget.value)}
+            />
+            <Input className={css(styles.inputMenu)} holder='Mesa' type='text' value={table}
+              handleChange={e => setTable(e.currentTarget.value)}
+            />
+          </div>
+          <div className={css(styles.listItens)}>
+            {order.map((item) => <Order
+              key={item.id}
+              item={item}
+              addItem={addItem}
+              minusItem={minusItem}
+              removeItem={removeItem} />)}
+          </div>
+          <div className={css(styles.styleTotal)}>
+            Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+          </div>
+          <Button className={css(styles.btnSend)}
+            handleClick={(e) => {
+              sendOrder();
+              e.preventDefault()
+            }} title={"Enviar"} />
+        </div>
       </div>
     </div>
   )

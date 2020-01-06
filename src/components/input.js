@@ -2,12 +2,14 @@ import React from 'react';
 
 function Input(props) {
   return (
-    <div className={props.className}>
+    <div>
       <label>{props.label}</label>
-      <input type={props.type} 
-        value={props.value} 
-        onChange={props.handleChange} 
-        placeholder={props.holder} 
+      <input
+        className={props.className}
+        type={props.type}
+        value={props.value}
+        onChange={props.handleChange}
+        placeholder={props.holder}
       />
     </div>
   )
