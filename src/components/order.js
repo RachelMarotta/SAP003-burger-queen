@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite'
 import Button from './Button'
 
 const styles = StyleSheet.create({
-  listItem:{
+  order:{
     display:"flex",
     justifyContent:"space-between",
     fontSize:"20px",
@@ -51,9 +51,10 @@ const styles = StyleSheet.create({
 function Order(props) {
   return (
       <div key={props.item.id}>
-        <div className={css(styles.listItem)}>
+        <div className={css(styles.order)}>
           <span>{props.item.Name}</span>
           {props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+
           <Button className={css(styles.btnMinus)}
             handleClick={(e) => {
               props.minusItem(props.item);
@@ -61,7 +62,9 @@ function Order(props) {
             }}
             title={"-"}
           />
+
           {props.item.count}
+
           <Button className={css(styles.btnAdd)}
             handleClick={(e) => {
               props.addItem(props.item);
@@ -69,6 +72,7 @@ function Order(props) {
             }}
             title={"+"}
           />
+          
           <Button className={css(styles.btnRemove)}
             handleClick={(e) => {
               props.removeItem(props.item);

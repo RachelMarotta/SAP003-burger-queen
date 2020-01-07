@@ -11,12 +11,19 @@ import Menu from '../components/Menu';
 const styles = StyleSheet.create({
   floorPage: {
     display: 'flex',
-    borderTop: '5px solid black'
+    fontFamily: 'Noto Sans JP sans-serif',
+    // borderTop: '5px solid black'
   },
   styleMenu: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-evenly',
     width: '50%',
+    border: '1px solid #000000',
+    borderRadius: '5px',
+    marginLeft: '1%',
+    marginRight: '1%',
+    backgroundColor: '#4F4F4F'
   },
   title: {
     fontSize: '40px',
@@ -32,17 +39,17 @@ const styles = StyleSheet.create({
   },
   btnMenu: {
     backgroundColor: "#FFFAF0",
-    borderRadius: "15px",
+    borderRadius: "6px",
     width: "170px",
     height: "70px",
     fontSize: "20px",
     fontWeight: "bold",
 
-    ':active': {
-      position: "relative",
-      top: "5px",
-      boxShadow: "none",
-    },
+    // ':active': {
+    //   position: "relative",
+    //   top: "5px",
+    //   boxShadow: "none",
+    // },
 
     ':hover': {
       backgroundColor: "#FFDE59",
@@ -58,15 +65,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffde59",
     fontSize: "20px",
     fontWeight: "bold",
-    borderRadius: "15px",
-    width: "100px",
-    height: "60px",
+    borderRadius: "6px",
+    border: "none",
+    width: "120px",
+    height: "100px",
 
-    ':active': {
-      position: "relative",
-      top: "5px",
-      boxShadow: "none",
-    },
+    // ':active': {
+    //   position: "relative",
+    //   top: "5px",
+    //   boxShadow: "none",
+    // },
 
     ':hover': {
       backgroundColor: "#F8CA12",
@@ -79,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   },
   inputMenu: {
-    borderRadius: "13px",
+    borderRadius: "6px",
     width: "170px",
     height: "35px",
     textAlign: "center"
@@ -97,9 +105,6 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "100%",
     marginLeft: "20px",
-  },
-  lineOrder: {
-    borderLeft: '5px solid black'
   },
 })
 
@@ -191,14 +196,18 @@ function ShowMenu() {
               setCategory("Café da manhã");
               e.preventDefault();
             }}
-            title={"Café da Manhã"} />
+            title={"Café da Manhã"} 
+            />
+
           <Button className={css(styles.btnMenu)}
             handleClick={(e) => {
               setCategory("Lanches");
               e.preventDefault();
             }}
-            title={"Almoço/Jantar"} />
+            title={"Almoço/Jantar"} 
+            />
         </div>
+        
         <div className={css(styles.btnItensPosition)}>
           {categoryItens.map((item) => <Menu
             key={item.id}
@@ -206,17 +215,22 @@ function ShowMenu() {
             addItem={addItem} />)}
         </div>
       </div>
+
       <div className={css(styles.styleMenu)}>
-        <div className={css(styles.lineOrder)}>
-          <h1 className={css(styles.title)}>Pedido</h1>
+          <h1 className={css(styles.title)}>Resumo do Pedido</h1>
           <div className={css(styles.inputPosition)}>
             <Input className={css(styles.inputMenu)} holder='Nome' type='text' value={client}
               handleChange={e => setClient(e.currentTarget.value)}
             />
-            <Input className={css(styles.inputMenu)} holder='Mesa' type='text' value={table}
-              handleChange={e => setTable(e.currentTarget.value)}
+
+            <Input className={css(styles.inputMenu)} 
+            holder='Mesa' 
+            type='text' 
+            value={table}
+            handleChange={e => setTable(e.currentTarget.value)}
             />
           </div>
+
           <div className={css(styles.listItens)}>
             {order.map((item) => <Order
               key={item.id}
@@ -225,15 +239,16 @@ function ShowMenu() {
               minusItem={minusItem}
               removeItem={removeItem} />)}
           </div>
+
           <div className={css(styles.styleTotal)}>
             Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
           </div>
+
           <Button className={css(styles.btnSend)}
             handleClick={(e) => {
               sendOrder();
               e.preventDefault()
             }} title={"Enviar"} />
-        </div>
       </div>
     </div>
   )

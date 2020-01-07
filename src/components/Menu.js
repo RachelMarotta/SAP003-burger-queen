@@ -6,20 +6,25 @@ const styles = StyleSheet.create({
   btnItens: {
     display: "flex",
     justifyContent: "space-between",
-    color: "#1C1C1C",
-    backgroundColor: "#FFFAF0",
-    borderRadius: "15px",
+    color: "#black",
+    // backgroundColor: "#FFFAF0",
+    borderRadius: "6px",
+    // border: 'none',
     width: "160px",
     height: "60px",
     fontSize: "15px",
     fontWeight: "bold",
     marginTop: "15px",
-
-    ':active': {
-      position: "relative",
-      top: "5px",
-      boxShadow: "none",
-    },
+    marginBottom: '2%',
+    border: "2px solid #FFDE59",
+    backgroundColor: "#545454",
+    
+    
+    // ':active': {
+    //   position: "relative",
+    //   top: "5px",
+    //   boxShadow: "none",
+    // },
 
     ':hover': {
       backgroundColor: "#FFDE59",
