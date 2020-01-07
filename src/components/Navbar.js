@@ -3,32 +3,49 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link } from "react-router-dom";
 
 const styles = StyleSheet.create({
-	navbar: {
-		listStyle: 'none',
-		display: 'inline',
-		marginRight: '15px',
+	header: {
+		display: "flex",
 	},
+
+	navbar: {
+		marginTop: "2%"
+	},
+
+	styleLi: {
+		listStyle: "none",
+		display: "inline",
+		marginRight: "40%",
+	},
+
+	styleLink: {
+		textDecoration: "none",
+		color: "black",
+		fontSize: "35px",
+		fontWeight: "bold",
+		// border: '1px solid black',
+		// borderRadius: "4px",
+	},
+
 	styleLogo: {
-    marginLeft: '30%',
-  }
+		marginLeft: "45%",
+	}
 })
 
 function Navbar() {
 	return (
-		<nav>
-		
-			<ul>
-			<header>
-        <img className={css(styles.styleLogo)} src="/images/Logo.png" alt="Logotipo" />
-      </header>
-				<li className={css(styles.navbar)}>
-					<Link to="/">Salão</Link>
-				</li>
-				<li className={css(styles.navbar)}>
-					<Link to="/kitchen">Cozinha</Link>
-				</li>
-			</ul>
-		</nav>
+		<header className={css(styles.header)}>
+			<nav className={css(styles.navbar)}>
+				<ul>
+					<li className={css(styles.styleLi)}>
+						<Link to="/" className={css(styles.styleLink)}>Salão</Link>
+					</li>
+					<li className={css(styles.styleLi)}>
+						<Link to="/kitchen" className={css(styles.styleLink)}>Cozinha</Link>
+					</li>
+				</ul>
+			</nav>
+			<img className={css(styles.styleLogo)} src="/images/Logo1.png" alt="Logotipo" />
+		</header>
 	);
 };
 

@@ -9,8 +9,7 @@ function Button(props) {
       type={props.type}
     >{props.item}
       {props.title}
-      {props.Name}
-      {props.Price}
+      {props.Name} {props.Price}
     </button>
   )
 }

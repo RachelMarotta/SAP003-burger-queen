@@ -3,59 +3,35 @@ import { StyleSheet, css } from 'aphrodite'
 import Button from './Button'
 
 const styles = StyleSheet.create({
-  order:{
-    display:"flex",
-    justifyContent:"space-between",
-    fontSize:"20px",
-    marginTop:"25px"
+  orderList: {
+    marginTop: "2%",
+    textAlign: "center",
+    backgroundColor: "#707070"
   },
-  btnMinus: {
-    backgroundColor:"#FF6859",
-    color: "#00000",
-    borderRadius:"20px",
-    width: "30px",
-    height:"30px",
-    border:"none",
-    fontSize:"25px",
-
-    ':active': {
-      position:"relative",
-      top:"5px",
-      boxShadow:"none",
-    },
+  btnAddMinus: {
+    fontWeight: 'bold',
+    height: '40px',
+    width: '40px',
+    borderRadius: "20px",
+    border: "none",
+    fontSize: "20px",
   },
-  btnAdd: {
-    fontSize:"25px",
-    backgroundColor:"#59FFAA",
-    borderRadius:"20px",
-    border:"none",
-    color: "#00000",
-    width: "30px",
-    height:"30px",
-
-    ':active': {
-      position:"relative",
-      top:"5px",
-      boxShadow:"none",
-    },
-  },
-  btnRemove: {
-    width:"30px",
-    height:"30px",
-    borderRadius:"20px",
-    backgroundColor:"#FFDE59",
-    border:"none",
+  optionList: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    marginTop: "3%",
   }
 })
 
 function Order(props) {
   return (
-      <div key={props.item.id}>
-        <div className={css(styles.order)}>
-          <span>{props.item.Name}</span>
-          {props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+    <div key={props.item.id}>
+      <div className={css(styles.orderList)}>
+        <span>{props.item.Name} </span>
+        {props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
 
-          <Button className={css(styles.btnMinus)}
+        <div className={css(styles.optionList)}>
+          <Button className={css(styles.btnAddMinus)}
             handleClick={(e) => {
               props.minusItem(props.item);
               e.preventDefault();
@@ -65,15 +41,15 @@ function Order(props) {
 
           {props.item.count}
 
-          <Button className={css(styles.btnAdd)}
+          <Button className={css(styles.btnAddMinus)}
             handleClick={(e) => {
               props.addItem(props.item);
               e.preventDefault();
             }}
             title={"+"}
           />
-          
-          <Button className={css(styles.btnRemove)}
+
+          <Button className={css(styles.btnAddMinus)}
             handleClick={(e) => {
               props.removeItem(props.item);
               e.preventDefault();
@@ -82,6 +58,7 @@ function Order(props) {
           />
         </div>
       </div>
+    </div>
   )
 }
 

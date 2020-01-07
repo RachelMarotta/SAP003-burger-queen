@@ -11,99 +11,100 @@ import Menu from '../components/Menu';
 const styles = StyleSheet.create({
   floorPage: {
     display: 'flex',
-    fontFamily: 'Noto Sans JP sans-serif',
-    // borderTop: '5px solid black'
   },
+
   styleMenu: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     width: '50%',
-    border: '1px solid #000000',
+    border: '1px solid black',
     borderRadius: '5px',
     marginLeft: '1%',
     marginRight: '1%',
     backgroundColor: '#4F4F4F'
   },
+
   title: {
     fontSize: '40px',
     textAlign: "center",
     marginTop: '4px',
     marginBottom: '30px',
-    color: '#000000'
+    color: 'black'
   },
+
   btnPosition: {
     display: "flex",
     justifyContent: "space-around",
     marginBottom: '30px',
   },
+
   btnMenu: {
-    backgroundColor: "#FFFAF0",
+    backgroundColor: "#FFDE59",
     borderRadius: "6px",
-    width: "170px",
-    height: "70px",
+    border: "none",
+    width: "150px",
+    height: "60px",
     fontSize: "20px",
     fontWeight: "bold",
-
-    // ':active': {
-    //   position: "relative",
-    //   top: "5px",
-    //   boxShadow: "none",
-    // },
 
     ':hover': {
       backgroundColor: "#FFDE59",
-      color: "#000000"
+      color: "black"
     },
   },
+
   styleTotal: {
     fontSize: "20px",
     fontWeight: "bold",
+    marginBottom: "3%"
   },
+
   btnSend: {
-    color: "#000000",
-    backgroundColor: "#ffde59",
+    color: "black",
+    backgroundColor: "#FFDE59",
     fontSize: "20px",
     fontWeight: "bold",
     borderRadius: "6px",
     border: "none",
-    width: "120px",
-    height: "100px",
-
-    // ':active': {
-    //   position: "relative",
-    //   top: "5px",
-    //   boxShadow: "none",
-    // },
+    width: "130px",
+    height: "60px",
 
     ':hover': {
       backgroundColor: "#F8CA12",
-      color: "#000000",
+      color: "black",
       cursor: "pointer",
     },
   },
+
   inputPosition: {
     display: "flex",
     justifyContent: "space-around"
   },
+
   inputMenu: {
     borderRadius: "6px",
     width: "170px",
     height: "35px",
     textAlign: "center"
   },
+
   btnItensPosition: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     height: "100%",
-    width: "90%px",
+    width: "90%",
+    marginLeft: "5%",
   },
+
   listItens: {
+    fontSize: "20px",
+    fontWeight: "bold",
     marginTop: "20px",
     overflow: "auto",
     width: "90%",
-    height: "100%",
+    height: "200px",
     marginLeft: "20px",
   },
 })
@@ -116,6 +117,8 @@ function ShowMenu() {
   const [total, setTotal] = useState(0);
   const [itensBreakfast, setItensBreakfast] = useState([]);
   const [itensLunch, setItensLunch] = useState([]);
+  const [itensExtras, setItensExtras] = useState([]);
+
 
   useEffect(() => {
     db
@@ -127,10 +130,13 @@ function ShowMenu() {
         }))
         setItensBreakfast(docMenu.filter(doc => doc.category === "Café da manhã"));
         setItensLunch(docMenu.filter(doc => doc.category === "Lanches"));
+        setItensExtras(docMenu.filter(doc => doc.category === "Extras"));
       })
   }, []);
 
-  const categoryItens = category === "Lanches" ? itensLunch : itensBreakfast
+  const firstCheck = category === "Lanches",
+  secondCheck = category === "Café da manhã",
+  categoryItens = firstCheck ? itensLunch : secondCheck ? itensBreakfast : itensExtras
 
   function addItem(item) {
     const itemIndex = order.findIndex((el) => el.id === item.id);
@@ -205,6 +211,14 @@ function ShowMenu() {
               e.preventDefault();
             }}
             title={"Almoço/Jantar"} 
+            />
+
+            <Button className={css(styles.btnMenu)}
+            handleClick={(e) => {
+              setCategory("Extras");
+              e.preventDefault();
+            }}
+            title={"Extras"} 
             />
         </div>
         
