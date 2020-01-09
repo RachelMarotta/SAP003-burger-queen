@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: '40px',
+    fontSize: '35px',
     textAlign: "center",
-    marginTop: '4px',
+    marginTop: '4%',
     marginBottom: '30px',
-    color: 'black'
+    color: 'black',
   },
 
   btnPosition: {
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
 
     ':hover': {
-      backgroundColor: "#FFDE59",
+      // backgroundColor: "#FFDE59",
+      backgroundColor: "#FFFF66",
       color: "black"
     },
   },
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     height: "60px",
 
     ':hover': {
-      backgroundColor: "#F8CA12",
+      backgroundColor: "#FFFF66",
       color: "black",
       cursor: "pointer",
     },
@@ -117,8 +118,6 @@ function ShowMenu() {
   const [total, setTotal] = useState(0);
   const [itensBreakfast, setItensBreakfast] = useState([]);
   const [itensLunch, setItensLunch] = useState([]);
-  const [itensExtras, setItensExtras] = useState([]);
-
 
   useEffect(() => {
     db
@@ -130,28 +129,29 @@ function ShowMenu() {
         }))
         setItensBreakfast(docMenu.filter(doc => doc.category === "Café da manhã"));
         setItensLunch(docMenu.filter(doc => doc.category === "Lanches"));
-        setItensExtras(docMenu.filter(doc => doc.category === "Extras"));
       })
   }, []);
 
-  const firstCheck = category === "Lanches",
-  secondCheck = category === "Café da manhã",
-  categoryItens = firstCheck ? itensLunch : secondCheck ? itensBreakfast : itensExtras
+  const categoryItens = category === 'Lanches' ? itensLunch : itensBreakfast
 
-  function addItem(item) {
-    const itemIndex = order.findIndex((el) => el.id === item.id);
+  function addItem(item, extra) {
+    const itemIndex = order.findIndex((el) => el.id === item.id && el.extra === extra);
     if (itemIndex === -1) {
-      setOrder([...order, { ...item, count: 1 }]);
+      setOrder([...order, { ...item, count: 1, extra }]);
     } else {
       const newOrder = [...order];
       newOrder[itemIndex].count += 1;
+
       setOrder(newOrder);
     }
-    setTotal(total + (item.Price))
+    const extraPrice = extra ? 1 : 0;
+    setTotal(total + (item.Price + extraPrice))
   }
 
-  function removeItem(item) {
+  function removeItem(item, extra) {
     const index = (order.indexOf(item));
+    // const extraPrice = extra ? 0 : -1;
+
     order.splice(index, 1);
     setOrder([...order]);
     setTotal(total - (item.Price * item.count))
@@ -185,7 +185,7 @@ function ShowMenu() {
           setClient("");
           setTable("");
           setOrder([]);
-          setTotal([]);
+          setTotal(0);
         })
     } else {
       growl.warning("Preencha nome e mesa!")
@@ -202,26 +202,18 @@ function ShowMenu() {
               setCategory("Café da manhã");
               e.preventDefault();
             }}
-            title={"Café da Manhã"} 
-            />
+            title={"Café da Manhã"}
+          />
 
           <Button className={css(styles.btnMenu)}
             handleClick={(e) => {
               setCategory("Lanches");
               e.preventDefault();
             }}
-            title={"Almoço/Jantar"} 
-            />
-
-            <Button className={css(styles.btnMenu)}
-            handleClick={(e) => {
-              setCategory("Extras");
-              e.preventDefault();
-            }}
-            title={"Extras"} 
-            />
+            title={"Almoço/Jantar"}
+          />
         </div>
-        
+
         <div className={css(styles.btnItensPosition)}>
           {categoryItens.map((item) => <Menu
             key={item.id}
@@ -231,38 +223,38 @@ function ShowMenu() {
       </div>
 
       <div className={css(styles.styleMenu)}>
-          <h1 className={css(styles.title)}>Resumo do Pedido</h1>
-          <div className={css(styles.inputPosition)}>
-            <Input className={css(styles.inputMenu)} holder='Nome' type='text' value={client}
-              handleChange={e => setClient(e.currentTarget.value)}
-            />
+        <h1 className={css(styles.title)}>Resumo do Pedido</h1>
+        <div className={css(styles.inputPosition)}>
+          <Input className={css(styles.inputMenu)} holder='Nome' type='text' value={client}
+            handleChange={e => setClient(e.currentTarget.value)}
+          />
 
-            <Input className={css(styles.inputMenu)} 
-            holder='Mesa' 
-            type='text' 
+          <Input className={css(styles.inputMenu)}
+            holder='Mesa'
+            type='text'
             value={table}
             handleChange={e => setTable(e.currentTarget.value)}
-            />
-          </div>
+          />
+        </div>
 
-          <div className={css(styles.listItens)}>
-            {order.map((item) => <Order
-              key={item.id}
-              item={item}
-              addItem={addItem}
-              minusItem={minusItem}
-              removeItem={removeItem} />)}
-          </div>
+        <div className={css(styles.listItens)}>
+          {order.map((item) => <Order
+            key={item.id}
+            item={item}
+            addItem={addItem}
+            minusItem={minusItem}
+            removeItem={removeItem} />)}
+        </div>
 
-          <div className={css(styles.styleTotal)}>
-            Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-          </div>
+        <div className={css(styles.styleTotal)}>
+          Total {total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+        </div>
 
-          <Button className={css(styles.btnSend)}
-            handleClick={(e) => {
-              sendOrder();
-              e.preventDefault()
-            }} title={"Enviar"} />
+        <Button className={css(styles.btnSend)}
+          handleClick={(e) => {
+            sendOrder();
+            e.preventDefault()
+          }} title={"Enviar"} />
       </div>
     </div>
   )

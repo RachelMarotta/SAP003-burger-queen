@@ -24,11 +24,15 @@ const styles = StyleSheet.create({
 })
 
 function Order(props) {
+  const extraPrice = props.item.extra ? 1 : 0;
+  const itemPrice = props.item.Price + extraPrice;
+
   return (
-    <div key={props.item.id}>
+    <div>
       <div className={css(styles.orderList)}>
-        <span>{props.item.Name} </span>
-        {props.item.Price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+        <span>{props.item.Name}</span>
+        <span> - {props.item.extra}</span>
+        {itemPrice.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
 
         <div className={css(styles.optionList)}>
           <Button className={css(styles.btnAddMinus)}
