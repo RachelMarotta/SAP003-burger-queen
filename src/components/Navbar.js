@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
 		color: "black",
 		fontSize: "35px",
 		fontWeight: "bold",
-		// border: '1px solid black',
-		// borderRadius: "4px",
 	},
 
 	styleLogo: {

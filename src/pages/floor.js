@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
 
     ':hover': {
-      // backgroundColor: "#FFDE59",
       backgroundColor: "#FFFF66",
       color: "black"
     },
@@ -148,17 +147,17 @@ function ShowMenu() {
     setTotal(total + (item.Price + extraPrice))
   }
 
-  function removeItem(item, extra) {
+  function removeItem(item) {
     const index = (order.indexOf(item));
-    // const extraPrice = extra ? 0 : -1;
-
+    const extraPrice = item.extra ? 1 : 0;
+    
     order.splice(index, 1);
     setOrder([...order]);
-    setTotal(total - (item.Price * item.count))
+    setTotal(total - ((item.Price + extraPrice) * item.count))
   }
 
-  function minusItem(item) {
-    const itemIndex = order.findIndex((el) => el.id === item.id);
+  function minusItem(item, extra) {
+    const itemIndex = order.findIndex((el) => el.id === item.id && el.extra === extra);
     const itemCount = order[itemIndex];
 
     if (itemCount.count === 1) {
@@ -167,7 +166,8 @@ function ShowMenu() {
       itemCount.count += -1;
       setOrder([...order]);
     }
-    setTotal(total - (item.Price))
+    const extraPrice = extra ? 1 : 0;
+    setTotal(total - (item.Price + extraPrice))
   }
 
   function sendOrder() {

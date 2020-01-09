@@ -31,13 +31,13 @@ function Order(props) {
     <div>
       <div className={css(styles.orderList)}>
         <span>{props.item.Name}</span>
-        <span> - {props.item.extra}</span>
+        <span> + {props.item.extra} </span>
         {itemPrice.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
 
         <div className={css(styles.optionList)}>
           <Button className={css(styles.btnAddMinus)}
             handleClick={(e) => {
-              props.minusItem(props.item);
+              props.minusItem(props.item, props.item.extra);
               e.preventDefault();
             }}
             title={"-"}
@@ -47,7 +47,7 @@ function Order(props) {
 
           <Button className={css(styles.btnAddMinus)}
             handleClick={(e) => {
-              props.addItem(props.item);
+              props.addItem(props.item, props.item.extra);
               e.preventDefault();
             }}
             title={"+"}
