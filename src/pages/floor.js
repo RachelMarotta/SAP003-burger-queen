@@ -10,25 +10,25 @@ import Menu from '../components/Menu';
 
 const styles = StyleSheet.create({
   floorPage: {
-    display: 'flex',
+    display: 'flex'
   },
 
   styleMenu: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
     width: '50%',
     border: '1px solid black',
     borderRadius: '5px',
-    marginLeft: '1%',
-    marginRight: '1%',
-    backgroundColor: '#4F4F4F'
+    marginLeft: '10px',
+    marginRight: '10px',
+    backgroundColor: '#4F4F4F',
+    height: '600px'
   },
 
   title: {
     fontSize: '35px',
     textAlign: "center",
-    marginTop: '4%',
+    marginTop: '20px',
     marginBottom: '30px',
     color: 'black',
   },
@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
   styleTotal: {
     fontSize: "20px",
     fontWeight: "bold",
-    marginBottom: "3%"
+    marginTop: "5px",
+    marginBottom: "10px",
+    marginLeft: "180px"
   },
 
   btnSend: {
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
     border: "none",
     width: "130px",
     height: "60px",
+    marginLeft: "180px",
 
     ':hover': {
       backgroundColor: "#FFFF66",
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
-    height: "100%",
+    height: "20%",
     width: "90%",
     marginLeft: "5%",
   },
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: "20px",
     overflow: "auto",
     width: "90%",
-    height: "200px",
+    height: "345px",
     marginLeft: "20px",
   },
 })
