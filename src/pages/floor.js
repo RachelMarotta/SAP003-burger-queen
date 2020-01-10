@@ -139,7 +139,11 @@ function ShowMenu() {
   function addItem(item, extra) {
     const itemIndex = order.findIndex((el) => el.id === item.id && el.extra === extra);
     if (itemIndex === -1) {
-      setOrder([...order, { ...item, count: 1, extra }]);
+      if (extra) {
+        setOrder([...order, { ...item, count: 1, extra}])
+      } else {
+        setOrder([...order, { ...item, count: 1}])
+      }
     } else {
       const newOrder = [...order];
       newOrder[itemIndex].count += 1;
@@ -181,7 +185,9 @@ function ShowMenu() {
           client,
           table,
           order,
-          total
+          total,
+          status: "pending",
+          addTime: new Date().getTime(),
         })
         .then(() => {
           growl.success("Pedido enviado!");

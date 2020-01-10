@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 	styleLi: {
 		listStyle: "none",
 		display: "inline",
-		marginRight: "40%",
+		marginRight: "40px",
 	},
 
 	styleLink: {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	},
 
 	styleLogo: {
-		marginLeft: "45%",
+		marginLeft: "280px",
 	}
 })
 
@@ -39,6 +39,9 @@ function Navbar() {
 					</li>
 					<li className={css(styles.styleLi)}>
 						<Link to="/kitchen" className={css(styles.styleLink)}>Cozinha</Link>
+					</li>
+					<li className={css(styles.styleLi)}>
+						<Link to="/server" className={css(styles.styleLink)}>Pedidos</Link>
 					</li>
 				</ul>
 			</nav>
