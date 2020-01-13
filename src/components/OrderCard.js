@@ -17,8 +17,10 @@ function OrderCard(props) {
       <div className={css(styles.styleClient)}>
         {props.client}
       </div>
+      {props.addTime} 
       Mesa: {props.table}
       {props.order}
+      
     </>
   )
 }

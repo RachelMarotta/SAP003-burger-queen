@@ -4,8 +4,9 @@ import { StyleSheet, css } from 'aphrodite'
 import OrderCard from '../components/OrderCard'
 import Button from '../components/Button'
 
+
 const styles = StyleSheet.create({
-  kitchenPage: {
+  waiterPage: {
     display: 'flex'
   },
 
@@ -69,8 +70,8 @@ const styles = StyleSheet.create({
 })
 
 function Kitchen() {
-  const [pending, setPending] = useState([]);
   const [done, setDone] = useState([]);
+  const [delivered, setDelivered] = useState([]);
 
   useEffect(() => {
 
@@ -82,48 +83,37 @@ function Kitchen() {
           id: doc.id,
           ...doc.data()
         }))
-        setPending(order.filter(doc => doc.status === "pending"));
         setDone(order.filter((doc) => doc.status === "done"));
+        setDelivered(order.filter(doc => doc.status === "delivered"));
       })
   }, []);
 
-  function orderDone(item) {
+  function orderDelivered(item) {
 
     db
       .collection("Orders")
       .doc(item.id)
       .update({
-        status: "done",
+        status: "delivered",
         time: new Date().getTime()
       })
-    const newPending = pending.filter((el) => el.id !== item.id);
-    setPending(newPending);
+    const newDone = done.filter((el) => el.id !== item.id);
+    setDone(newDone);
 
-    const newDone = [...done, { ...item, status: "done", time: new Date().getTime() }];
-    setDone(newDone)
-  }
-
-  function time(time2, time1) {
-    const diff = ((time2.getTime() - time1.getTime()) / 1000) / 60;
-
-    if (Math.abs(Math.round(diff)) > 1) {
-      return `${Math.abs(Math.round(diff))} minutos`;
-    } else {
-      return `${Math.abs(Math.round(diff))} minuto`;
-    }
+    const newDelivered = [...delivered, { ...item, status: "delivered" }];
+    setDelivered(newDelivered)
   }
 
   return (
-    <div className={css(styles.kitchenPage)}>
+    <div className={css(styles.waiterPage)}>
       <div className={css(styles.cardContainer)}>
 
-        <h1 className={css(styles.title)}>Pedidos Pendentes</h1>
+        <h1 className={css(styles.title)}>Pedidos Prontos</h1>
 
         <div className={css(styles.orderContainer)}>
-          {pending.map((item) =>
+          {done.map((item) =>
             <div key={item.id} className={css(styles.styleCard)}>
               <OrderCard
-                addTime={new Date(item.addTime).toLocaleTimeString("pt-BR")}
                 table={item.table}
                 client={item.client}
                 total={item.total}
@@ -137,7 +127,7 @@ function Kitchen() {
               />
               <Button className={css(styles.btnSend)}
                 handleClick={(e) => {
-                  orderDone(item)
+                  orderDelivered(item)
                   e.preventDefault()
                 }} title={"Pronto"}
               />
@@ -147,16 +137,15 @@ function Kitchen() {
       </div>
 
       <div className={css(styles.cardContainer)}>
-        <h1 className={css(styles.title)}>Pedidos Prontos</h1>
+        <h1 className={css(styles.title)}>Pedidos Entregues</h1>
         <div className={css(styles.orderContainer)}>
-          {done.map((item) =>
-            <div key={item.id} className={css(styles.styleCard)}>
+          {delivered.map((item) =>
+            <div key={item.id}  className={css(styles.styleCard)}>
               <OrderCard
-                addTime={time(new Date(item.time), new Date(item.addTime))}
                 table={item.table}
                 client={item.client}
                 total={item.total}
-                orderDone={() => orderDone(item)}
+                orderDelivered={() => orderDelivered(item)}
                 order={item.order.map((item, index) => {
                   return (
                     <div key={index}>
