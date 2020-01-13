@@ -3,6 +3,8 @@ import db from '../utils/firebase';
 import { StyleSheet, css } from 'aphrodite'
 import OrderCard from '../components/OrderCard'
 import Button from '../components/Button'
+import growl from 'growl-alert'
+import 'growl-alert/dist/growl-alert.css'
 
 const styles = StyleSheet.create({
   kitchenPage: {
@@ -68,6 +70,11 @@ const styles = StyleSheet.create({
   },
 })
 
+const option = {
+  fadeAway: true,
+  fadeAwayTimeout: 2000,
+};
+
 function Kitchen() {
   const [pending, setPending] = useState([]);
   const [done, setDone] = useState([]);
@@ -76,7 +83,7 @@ function Kitchen() {
 
     db
       .collection("Orders")
-      .orderBy("addTime", "asc")
+      .orderBy("sendTime", "asc")
       .get().then((snapshot) => {
         const order = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -101,16 +108,14 @@ function Kitchen() {
 
     const newDone = [...done, { ...item, status: "done", time: new Date().getTime() }];
     setDone(newDone)
+
+    growl.success({ text: "Pedido pronto para entrega!", ...option });
   }
 
-  function time(time2, time1) {
-    const diff = ((time2.getTime() - time1.getTime()) / 1000) / 60;
+  function time(readyTime, orderTime) {
+    const diffTime = ((readyTime.getTime() - orderTime.getTime()) / 1000) / 60;
 
-    if (Math.abs(Math.round(diff)) > 1) {
-      return `${Math.abs(Math.round(diff))} minutos`;
-    } else {
-      return `${Math.abs(Math.round(diff))} minuto`;
-    }
+    return `${Math.abs(Math.round(diffTime))} min`;
   }
 
   return (
@@ -123,7 +128,7 @@ function Kitchen() {
           {pending.map((item) =>
             <div key={item.id} className={css(styles.styleCard)}>
               <OrderCard
-                addTime={new Date(item.addTime).toLocaleTimeString("pt-BR")}
+                sendTime={new Date(item.sendTime).toLocaleTimeString("pt-BR")}
                 table={item.table}
                 client={item.client}
                 total={item.total}
@@ -152,7 +157,7 @@ function Kitchen() {
           {done.map((item) =>
             <div key={item.id} className={css(styles.styleCard)}>
               <OrderCard
-                addTime={time(new Date(item.time), new Date(item.addTime))}
+                sendTime={time(new Date(item.time), new Date(item.sendTime))}
                 table={item.table}
                 client={item.client}
                 total={item.total}

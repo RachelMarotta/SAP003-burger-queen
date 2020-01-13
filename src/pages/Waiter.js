@@ -3,6 +3,8 @@ import db from '../utils/firebase';
 import { StyleSheet, css } from 'aphrodite'
 import OrderCard from '../components/OrderCard'
 import Button from '../components/Button'
+import growl from 'growl-alert'
+import 'growl-alert/dist/growl-alert.css'
 
 
 const styles = StyleSheet.create({
@@ -69,7 +71,12 @@ const styles = StyleSheet.create({
   },
 })
 
-function Kitchen() {
+const option = {
+  fadeAway: true,
+  fadeAwayTimeout: 2000,
+};
+
+function Waiter() {
   const [done, setDone] = useState([]);
   const [delivered, setDelivered] = useState([]);
 
@@ -77,7 +84,7 @@ function Kitchen() {
 
     db
       .collection("Orders")
-      .orderBy("addTime", "asc")
+      .orderBy("sendTime", "asc")
       .get().then((snapshot) => {
         const order = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -100,8 +107,16 @@ function Kitchen() {
     const newDone = done.filter((el) => el.id !== item.id);
     setDone(newDone);
 
-    const newDelivered = [...delivered, { ...item, status: "delivered" }];
+    const newDelivered = [...delivered, { ...item, status: "delivered", time: new Date().getTime() }];
     setDelivered(newDelivered)
+
+    growl.success({ text: "Pedido Entregue!", ...option });
+  }
+
+  function time(readyTime, orderTime) {
+    const diffTime = ((readyTime.getTime() - orderTime.getTime()) / 1000) / 60;
+
+    return `${Math.abs(Math.round(diffTime))} min`;
   }
 
   return (
@@ -140,8 +155,9 @@ function Kitchen() {
         <h1 className={css(styles.title)}>Pedidos Entregues</h1>
         <div className={css(styles.orderContainer)}>
           {delivered.map((item) =>
-            <div key={item.id}  className={css(styles.styleCard)}>
+            <div key={item.id} className={css(styles.styleCard)}>
               <OrderCard
+                sendTime={time(new Date(item.time), new Date(item.sendTime))}
                 table={item.table}
                 client={item.client}
                 total={item.total}
@@ -154,6 +170,7 @@ function Kitchen() {
                   )
                 })}
               />
+              <div>Total: {item.total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</div>
             </div>
           )}
         </div>
@@ -162,4 +179,4 @@ function Kitchen() {
   )
 }
 
-export default Kitchen;
+export default Waiter;

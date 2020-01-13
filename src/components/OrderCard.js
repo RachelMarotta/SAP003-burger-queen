@@ -2,13 +2,17 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite'
 
 const styles = StyleSheet.create({
- 
+
   styleClient: {
     fontSize: "30px",
     fontWeight: "bold",
     marginBottom: "10px",
     marginTop: "10px"
   },
+
+  time: {
+
+  }
 })
 
 function OrderCard(props) {
@@ -17,10 +21,12 @@ function OrderCard(props) {
       <div className={css(styles.styleClient)}>
         {props.client}
       </div>
-      {props.addTime} 
+      <div className={css(styles.time)}>
+        {props.sendTime}
+      </div>
       Mesa: {props.table}
       {props.order}
-      
+
     </>
   )
 }

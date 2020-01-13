@@ -112,6 +112,11 @@ const styles = StyleSheet.create({
   },
 })
 
+const option = {
+  fadeAway: true,
+  fadeAwayTimeout: 2000,
+};
+
 function ShowMenu() {
   const [category, setCategory] = useState("Café da manhã");
   const [client, setClient] = useState("");
@@ -140,9 +145,9 @@ function ShowMenu() {
     const itemIndex = order.findIndex((el) => el.id === item.id && el.extra === extra);
     if (itemIndex === -1) {
       if (extra) {
-        setOrder([...order, { ...item, count: 1, extra}])
+        setOrder([...order, { ...item, count: 1, extra }])
       } else {
-        setOrder([...order, { ...item, count: 1}])
+        setOrder([...order, { ...item, count: 1 }])
       }
     } else {
       const newOrder = [...order];
@@ -157,7 +162,7 @@ function ShowMenu() {
   function removeItem(item) {
     const index = (order.indexOf(item));
     const extraPrice = item.extra ? 1 : 0;
-    
+
     order.splice(index, 1);
     setOrder([...order]);
     setTotal(total - ((item.Price + extraPrice) * item.count))
@@ -187,17 +192,17 @@ function ShowMenu() {
           order,
           total,
           status: "pending",
-          addTime: new Date().getTime(),
+          sendTime: new Date().getTime(),
         })
         .then(() => {
-          growl.success("Pedido enviado!");
+          growl.success({ text: "Pedido enviado!", ...option });
           setClient("");
           setTable("");
           setOrder([]);
           setTotal(0);
         })
     } else {
-      growl.warning("Preencha nome e mesa!")
+      growl.warning({ text: "Preencha nome e mesa!", ...option })
     }
   }
 
