@@ -4,57 +4,60 @@ import Button from './Button'
 
 const styles = StyleSheet.create({
   btnItens: {
-    color: "#black",
-    borderRadius: "6px",
-    border: "none",
-    width: "140px",
-    height: "80px",
-    fontSize: "15px",
-    fontWeight: "bold",
-    marginTop: "15px",
+    color: 'black',
+    borderRadius: '6px',
+    border: 'none',
+    width: '140px',
+    height: '80px',
+    fontSize: '15px',
+    fontWeight: 'bold',
+    marginTop: '15px',
     marginBottom: '2%',
-    backgroundColor: "#C8C8C8",
+    backgroundColor: '#C8C8C8',
 
     ':hover': {
-      backgroundColor: "#FFDE59",
-      color: "black",
-
+      backgroundColor: '#FFDE59',
+      color: 'black'
     },
   },
+
   modalBackground: {
-    position: "absolute",
-    backgroundColor: "#000000aa",
-    width: "100%",
+    position: 'absolute',
+    backgroundColor: '#000000aa',
+    width: '100%',
     top: 0,
     left: 0,
-    height: "100%",
+    height: '100%'
   },
+
   modal: {
-    width: "200px",
-    height: "200px",
-    background: "white",
-    borderRadius: "10px",
-    padding: "10px",
-    position: "relative",
-    margin: "250px auto",
+    width: '200px',
+    height: '200px',
+    background: 'white',
+    borderRadius: '10px',
+    padding: '10px',
+    position: 'relative',
+    margin: '250px auto',
     fontSize: '30px',
-    textAlign: "center",
+    textAlign: 'center',
     color: 'black',
   },
-  btnAdd :{
-    color: "black",
-    backgroundColor: "#FFDE59",
-    fontSize: "20px",
-    fontWeight: "bold",
-    borderRadius: "6px",
-    border: "none",
-    width: "110px",
-    height: "45px",
-    marginTop: "10px"
+
+  btnAdd: {
+    color: 'black',
+    backgroundColor: '#FFDE59',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    borderRadius: '6px',
+    border: 'none',
+    width: '110px',
+    height: '45px',
+    marginTop: '10px'
   },
+
   inputModal: {
-    width: "100%",
-    height: "2em",
+    width: '100%',
+    height: '2em',
   }
 })
 
@@ -93,11 +96,11 @@ function Menu(props) {
                   return (
                     <div key={index}>
                       <label>{extra.Name}</label>
-                      <input className={css(styles.inputModal)} 
-                      type="radio" 
-                      value={extra.Name} 
-                      onChange={() => setSelectedExtra(extra.Name)} 
-                      checked={extra.Name === selectedExtra} 
+                      <input className={css(styles.inputModal)}
+                        type="radio"
+                        value={extra.Name}
+                        onChange={() => setSelectedExtra(extra.Name)}
+                        checked={extra.Name === selectedExtra}
                       />
                     </div>
                   )

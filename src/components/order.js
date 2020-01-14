@@ -4,22 +4,24 @@ import Button from './Button'
 
 const styles = StyleSheet.create({
   orderList: {
-    marginTop: "2%",
-    textAlign: "center",
-    backgroundColor: "#707070"
+    marginTop: '2%',
+    textAlign: 'center',
+    backgroundColor: '#707070'
   },
+
   btnAddMinus: {
     fontWeight: 'bold',
     height: '40px',
     width: '40px',
-    borderRadius: "20px",
-    border: "none",
-    fontSize: "20px",
+    borderRadius: '20px',
+    border: 'none',
+    fontSize: '20px'
   },
+
   optionList: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    marginTop: "3%",
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    marginTop: '3%'
   }
 })
 

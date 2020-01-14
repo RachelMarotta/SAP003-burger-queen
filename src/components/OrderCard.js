@@ -3,31 +3,33 @@ import { StyleSheet, css } from 'aphrodite'
 
 const styles = StyleSheet.create({
 
-  styleClient: {
-    fontSize: "30px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-    marginTop: "10px"
+  styleCard: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 
-  time: {
+  tableCustomer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '4%'
+  },
 
+  strongClient: {
+    fontSize: '30px',
+    fontWeight: 'bold',
   }
 })
 
 function OrderCard(props) {
   return (
-    <>
-      <div className={css(styles.styleClient)}>
-        {props.client}
-      </div>
-      <div className={css(styles.time)}>
+    <div className={css(styles.styleCard)}>
+      <div className={css(styles.tableCustomer)}>
+        <div> Mesa: {props.table} </div>
+        <div className={css(styles.strongClient)}> {props.client} </div>
         {props.sendTime}
       </div>
-      Mesa: {props.table}
       {props.order}
-
-    </>
+    </div>
   )
 }
 

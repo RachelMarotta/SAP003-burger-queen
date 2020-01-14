@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
   },
 
   styleCard: {
-    width: "80%",
+    width: '80%',
     borderRadius: '5px',
-    marginBottom: "8px",
+    marginBottom: '8px',
     backgroundColor: '#C8C8C8',
     fontSize: '25px',
-    textAlign: "center",
+    textAlign: 'center',
     color: 'black',
   },
 
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexWrap: 'wrap',
     overflow: 'auto',
-    width: "100%",
-    height: "480px"
+    width: '100%',
+    height: '480px'
   },
 
   title: {
@@ -51,21 +51,21 @@ const styles = StyleSheet.create({
   },
 
   btnSend: {
-    color: "black",
-    backgroundColor: "#FFDE59",
-    fontSize: "20px",
-    fontWeight: "bold",
-    borderRadius: "6px",
+    color: 'black',
+    backgroundColor: '#FFDE59',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    borderRadius: '6px',
     border: '1px solid black',
-    width: "180px",
-    height: "40px",
-    marginLeft: "20px",
-    marginTop: "10px",
+    width: '180px',
+    height: '40px',
+    marginLeft: '20px',
+    marginTop: '25px',
 
     ':hover': {
-      backgroundColor: "#FFFF66",
-      color: "black",
-      cursor: "pointer",
+      backgroundColor: '#FFFF66',
+      color: 'black',
+      cursor: 'pointer',
     },
   },
 })

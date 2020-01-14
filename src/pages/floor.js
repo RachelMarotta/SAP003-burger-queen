@@ -34,81 +34,81 @@ const styles = StyleSheet.create({
   },
 
   btnPosition: {
-    display: "flex",
-    justifyContent: "space-around",
+    display: 'flex',
+    justifyContent: 'space-around',
     marginBottom: '30px',
   },
 
   btnMenu: {
-    backgroundColor: "#FFDE59",
-    borderRadius: "6px",
-    border: "none",
-    width: "150px",
-    height: "60px",
-    fontSize: "20px",
-    fontWeight: "bold",
+    backgroundColor: '#FFDE59',
+    borderRadius: '6px',
+    border: 'none',
+    width: '150px',
+    height: '60px',
+    fontSize: '20px',
+    fontWeight: 'bold',
 
     ':hover': {
-      backgroundColor: "#FFFF66",
-      color: "black"
+      backgroundColor: '#FFFF66',
+      color: 'black'
     },
   },
 
   styleTotal: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    marginTop: "5px",
-    marginBottom: "10px",
-    marginLeft: "180px"
+    fontSize: '20px',
+    fontWeight: 'bold',
+    marginTop: '5px',
+    marginBottom: '10px',
+    marginLeft: '180px'
   },
 
   btnSend: {
-    color: "black",
-    backgroundColor: "#FFDE59",
-    fontSize: "20px",
-    fontWeight: "bold",
-    borderRadius: "6px",
-    border: "none",
-    width: "130px",
-    height: "60px",
-    marginLeft: "180px",
+    color: 'black',
+    backgroundColor: '#FFDE59',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    borderRadius: '6px',
+    border: 'none',
+    width: '130px',
+    height: '60px',
+    marginLeft: '180px',
 
     ':hover': {
-      backgroundColor: "#FFFF66",
-      color: "black",
-      cursor: "pointer",
+      backgroundColor: '#FFFF66',
+      color: 'black',
+      cursor: 'pointer',
     },
   },
 
   inputPosition: {
-    display: "flex",
-    justifyContent: "space-around"
+    display: 'flex',
+    justifyContent: 'space-around'
   },
 
   inputMenu: {
-    borderRadius: "6px",
-    width: "170px",
-    height: "35px",
-    textAlign: "center"
+    borderRadius: '6px',
+    width: '170px',
+    height: '35px',
+    textAlign: 'center'
   },
 
   btnItensPosition: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    height: "20%",
-    width: "90%",
-    marginLeft: "5%",
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    height: '20%',
+    width: '90%',
+    marginLeft: '5%',
   },
 
   listItens: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    marginTop: "20px",
-    overflow: "auto",
-    width: "90%",
-    height: "345px",
-    marginLeft: "20px",
+    fontSize: '20px',
+    fontWeight: 'bold',
+    marginTop: '20px',
+    overflow: 'auto',
+    width: '90%',
+    height: '345px',
+    marginLeft: '20px',
   },
 })
 
@@ -139,7 +139,7 @@ function ShowMenu() {
       })
   }, []);
 
-  const categoryItens = category === 'Lanches' ? itensLunch : itensBreakfast
+  const categoryItens = category === "Lanches" ? itensLunch : itensBreakfast
 
   function addItem(item, extra) {
     const itemIndex = order.findIndex((el) => el.id === item.id && el.extra === extra);
@@ -239,13 +239,16 @@ function ShowMenu() {
       <div className={css(styles.styleMenu)}>
         <h1 className={css(styles.title)}>Resumo do Pedido</h1>
         <div className={css(styles.inputPosition)}>
-          <Input className={css(styles.inputMenu)} holder='Nome' type='text' value={client}
+          <Input className={css(styles.inputMenu)}
+            holder="Nome"
+            type="text"
+            value={client}
             handleChange={e => setClient(e.currentTarget.value)}
           />
 
           <Input className={css(styles.inputMenu)}
-            holder='Mesa'
-            type='text'
+            holder="Mesa"
+            type="text"
             value={table}
             handleChange={e => setTable(e.currentTarget.value)}
           />

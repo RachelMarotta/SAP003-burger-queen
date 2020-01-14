@@ -1,31 +1,32 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const styles = StyleSheet.create({
 	header: {
-		display: "flex",
+		display: 'flex',
+		justifyContent: 'space-between'
 	},
 
 	navbar: {
-		marginTop: "2%"
+		marginTop: '2%'
 	},
 
 	styleLi: {
-		listStyle: "none",
-		display: "inline",
-		marginRight: "70px",
+		listStyle: 'none',
+		display: 'inline',
+		marginRight: '60px'
 	},
 
 	styleLink: {
-		textDecoration: "none",
-		color: "black",
-		fontSize: "35px",
-		fontWeight: "bold",
-	},
+		textDecoration: 'none',
+		color: 'black',
+		fontSize: '35px',
+		fontWeight: 'bold',
 
-	styleLogo: {
-		marginLeft: "150px",
+		':hover': {
+			backgroundColor: '#FFDE59'
+		},
 	}
 })
 
@@ -45,7 +46,7 @@ function Navbar() {
 					</li>
 				</ul>
 			</nav>
-			<img className={css(styles.styleLogo)} src="/images/Logo1.png" alt="Logotipo" />
+			<img src="/images/Logo1.png" alt="Logotipo" />
 		</header>
 	);
 };
